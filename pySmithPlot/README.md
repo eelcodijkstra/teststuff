@@ -1,7 +1,7 @@
 pySmithPlot
 ===========
 
-Matplotlib extension for creating Smith charts with Python
+Matplotlib extension for creating Smith charts with Python. Copied from https://github.com/vMeijin/pySmithPlot
 
 Library for plotting a fully automatic Smith Chart with various customizable
 parameters and well selected default values. It also provides the following 
