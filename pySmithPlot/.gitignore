@@ -1,0 +1,4 @@
+# ignore all compiled python modules
+*pyc
+build
+.ipynb_checkpoints
