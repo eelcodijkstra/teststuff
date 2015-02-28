@@ -29,12 +29,18 @@ def helix(t):
     y = np.sin(2*np.pi*t)
     z = t
     return x, y, z
-    
+  
+def helix2(t,z):
+    x = np.cos(2*np.pi*(t-z))
+    y = np.sin(2*np.pi*(t-z))
+    z = z
+    return x, y, z
+  
 # Make a linear space from 0 to 4pi (i.e. 2 revolutions), get coords
-t = np.linspace(0, 4, 200)
-x, y, z = helix(t)
+z = np.linspace(0, 4, 200)
+x, y, z = helix2(0.0,z)
 
-pts = np.vstack([x,z,y]).transpose()
+pts = np.vstack([-x,z,y]).transpose()
 #plt = gl.GLLinePlotItem(pos=pts, color=pg.mkColor(0,0,255), width=2., antialias=True)
 plt = gl.GLLinePlotItem(pos=pts, width=1., antialias=True)
 w.addItem(plt)
