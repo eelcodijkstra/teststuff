@@ -45,6 +45,22 @@ pts = np.vstack([-x,z,y]).transpose()
 plt = gl.GLLinePlotItem(pos=pts, width=1., antialias=True)
 w.addItem(plt)
 
+frametime = 50 # frame refresh time in ms
+velocity = 1./frametime
+counter = 0
+
+def update():
+    global z, velocity, plt, counter
+    counter +=1
+    time = float(counter)/frametime % 1
+    x, y, z = helix2(time,z)
+    pts = np.vstack([-x,z,y]).transpose()
+    plt.setData(pos=pts)
+    
+timer = QtCore.QTimer()
+timer.timeout.connect(update)
+timer.start(50)
+
 ## Start Qt event loop unless running in interactive mode.
 if __name__ == '__main__':
     import sys
