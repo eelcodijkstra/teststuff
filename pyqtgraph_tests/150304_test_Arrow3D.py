@@ -3,7 +3,13 @@
 from PyQt4 import QtGui  # (the example applies equally well to PySide)
 import pyqtgraph as pg
 import pyqtgraph.opengl as gl
-import Arrow3D
+import numpy as np
+
+
+class Arrow3D(gl.GLLinePlotItem):
+    def __init__(self, *args, **kwargs):
+        super(Arrow3D, self).__init__(*args, **kwargs)
+
 
 ## Always start by initializing Qt (only once per application)
 app = QtGui.QApplication([])
@@ -21,6 +27,12 @@ plot.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
 g = gl.GLGridItem()
 #g.rotate(90,1,0,0)
 plot.addItem(g)
+pts = np.array( [[0, 0, 0], [0, 0, 3]] )
+arrowcolor = (255, 0, 0, 255)
+linewidth = 3.0
+arrow = Arrow3D(pos=pts, color=arrowcolor, mode='line_strip', width=linewidth, antialias=True)
+print arrow
+plot.addItem(arrow)
 
 ## Create a grid layout to manage the widgets size and position
 layout = QtGui.QGridLayout()
