@@ -24,9 +24,15 @@ psi_slider.setOrientation(QtCore.Qt.Vertical)
 psi_slider.setMinimum(0)
 psi_slider.setMaximum(90)
 psi_slider.setValue(0)
+psi_value = QtGui.QLabel(str(psi_slider.value()) + ' deg')
 psi_slider_layout.addWidget(psi_label)
 psi_slider_layout.addWidget(psi_slider)
-delta_slider_layout.setAlignment(QtCore.Qt.AlignHCenter)
+psi_slider_layout.addWidget(psi_value)
+#psi_slider_layout.setAlignment(QtCore.Qt.AlignHCenter)
+def set_psi_value(value):
+    psi_value.setText(str(value) + ' deg')
+psi_slider.valueChanged.connect(set_psi_value)
+
 
 delta_label = QtGui.QLabel('delta')
 delta_slider = QtGui.QSlider()
