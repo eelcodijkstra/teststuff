@@ -12,18 +12,38 @@ w.resize(1000,600)
 ## Create some widgets to be placed inside
 btn = QtGui.QPushButton('press me')
 text = QtGui.QLineEdit('enter text')
+
 sliderbox = QtGui.QGroupBox()
 hBoxLayout = QtGui.QHBoxLayout()
+psi_slider_layout = QtGui.QVBoxLayout()
+delta_slider_layout = QtGui.QVBoxLayout()
+
+psi_label = QtGui.QLabel('psi')
 psi_slider = QtGui.QSlider()
 psi_slider.setOrientation(QtCore.Qt.Vertical)
-psi_slider.setMinimum(-180)
-psi_slider.setMaximum(180)
-hBoxLayout.addWidget(psi_slider)
+psi_slider.setMinimum(0)
+psi_slider.setMaximum(90)
+psi_slider.setValue(0)
+psi_slider_layout.addWidget(psi_label)
+psi_slider_layout.addWidget(psi_slider)
+delta_slider_layout.setAlignment(QtCore.Qt.AlignHCenter)
+
+delta_label = QtGui.QLabel('delta')
+delta_slider = QtGui.QSlider()
+delta_slider.setOrientation(QtCore.Qt.Vertical)
+delta_slider.setMinimum(-180)
+delta_slider.setMaximum(180)
+delta_slider.setValue(0)
+delta_slider_layout.addWidget(delta_label)
+delta_slider_layout.addWidget(delta_slider)
+
+hBoxLayout.addItem(psi_slider_layout)
+hBoxLayout.addItem(delta_slider_layout)
 sliderbox.setLayout(hBoxLayout)
+
 wGL = gl.GLViewWidget()
 wGL.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
 g = gl.GLGridItem()
-#g.rotate(90,1,0,0)
 wGL.addItem(g)
 
 ## Create a grid layout to manage the widgets size and position
