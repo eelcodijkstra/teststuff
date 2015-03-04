@@ -120,7 +120,7 @@ pts_e_lines = np.dot(pts_e_lines, rot_efield_coord)
 z0 = np.zeros(len(z))
 pts_e_z0 = np.vstack([x,y,z0]).transpose()
 pts_e_z0 = np.dot(pts_e_z0, rot_efield_coord)
-pts_arrow = np.array( [[0.0, 0.0, 0.0], pts_e_z0[0]] )
+pts_arrow = np.array( [[0.0, 0.0, 0.0], pts_e_z0[len(pts_e_z0)/2.0]] )
 
 # Get ready to make plots
 efield_color = (255, 0, 0, 255)
