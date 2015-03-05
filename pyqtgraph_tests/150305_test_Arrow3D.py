@@ -25,7 +25,8 @@ g = gl.GLGridItem()
 plot.addItem(g)
 
 ## Create arrow
-arrow_md = MyMeshData.arrow(rows=10, cols=20, radius = 0.05)
+arrow_length = 1.0
+arrow_md = MyMeshData.arrow(rows=10, cols=20, radius = 0.05, length=arrow_length)
 colors = np.zeros((arrow_md.faceCount(), 4), dtype=float)
 colors[:,0] = 1.0
 colors[:,3] = 1.0
@@ -56,11 +57,18 @@ counter = 0
 # Function to update scene for each frame
 def update():
     global counter, frametime, n_rotations, n_rotations_per_second
+    global arrow_length
     counter +=1
     n_steps_per_rotation = 1000./frametime
     rotation_angle = 360.0/n_steps_per_rotation
-    if counter <= n_rotations * n_steps_per_rotation:
+    n_draws = n_rotations * n_steps_per_rotation
+    if counter <= n_draws:
         arrow.rotate(rotation_angle, 0, 1, 0)
+        if counter < n_draws:
+            z_scale = 0.95
+        else:
+            z_scale = 1.1
+        arrow.scale(1, 1, z_scale)
         
 # Set up timer for animation
 timer = QtCore.QTimer()
