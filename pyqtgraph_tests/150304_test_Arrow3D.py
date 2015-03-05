@@ -4,21 +4,7 @@ from PyQt4 import QtGui  # (the example applies equally well to PySide)
 import pyqtgraph as pg
 import pyqtgraph.opengl as gl
 import numpy as np
-
-
-class Arrow3D(gl.GLLinePlotItem):
-    def __init__(self, *args, **kwargs):
-        try:
-            pos = kwargs['pos']
-        except:
-            print 'pos not in argument list'
-        print pos
-        sum = 0.0
-        for i in range(pos.shape[1]):
-            sum += (pos[1][i] - pos[0][i])**2
-        length = np.sqrt(sum)
-        print sum, length
-        super(Arrow3D, self).__init__(*args, **kwargs)
+from MyMeshData import MyMeshData
 
 
 ## Always start by initializing Qt (only once per application)
@@ -38,22 +24,14 @@ g = gl.GLGridItem()
 #g.rotate(90,1,0,0)
 plot.addItem(g)
 
-arrowlength = 1
-arrowheadlength = 0.3
-pts = np.array( [[0, 0, 0], [0, 0, arrowlength]] )
-arrowcolor = (255, 0, 0, 255)
-linewidth = 7.0
-arrow = Arrow3D(pos=pts, color=arrowcolor, mode='line_strip', width=linewidth, antialias=True)
-plot.addItem(arrow)
-
-md = gl.MeshData.cylinder(rows=10, cols=20, radius=[0.1, 0.0], length=arrowheadlength)
-colors = np.zeros((md.faceCount(), 4), dtype=float)
+## Create arrow
+arrow_md = MyMeshData.arrow(rows=10, cols=20, radius = 0.05)
+colors = np.zeros((arrow_md.faceCount(), 4), dtype=float)
 colors[:,0] = 1.0
 colors[:,3] = 1.0
-md.setFaceColors(colors)
-m5 = gl.GLMeshItem(meshdata=md, smooth=True, drawEdges=True, edgeColor=(1,0,0,1), shader='balloon')
-m5.translate(0, 0, arrowlength - arrowheadlength)
-plot.addItem(m5)
+arrow_md.setFaceColors(colors)
+arrow = gl.GLMeshItem(meshdata=arrow_md, smooth=True, drawEdges=True, edgeColor=(1,0,0,1), shader='balloon')
+plot.addItem(arrow)
 
 ## Create a grid layout to manage the widgets size and position
 layout = QtGui.QGridLayout()
