@@ -8,6 +8,16 @@ import numpy as np
 
 class Arrow3D(gl.GLLinePlotItem):
     def __init__(self, *args, **kwargs):
+        try:
+            pos = kwargs['pos']
+        except:
+            print 'pos not in argument list'
+        print pos
+        sum = 0.0
+        for i in range(pos.shape[1]):
+            sum += (pos[1][i] - pos[0][i])**2
+        length = np.sqrt(sum)
+        print sum, length
         super(Arrow3D, self).__init__(*args, **kwargs)
 
 
@@ -27,13 +37,13 @@ plot.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
 g = gl.GLGridItem()
 #g.rotate(90,1,0,0)
 plot.addItem(g)
+
 arrowlength = 1
 arrowheadlength = 0.3
-pts = np.array( [[0, 0, 0], [0, 0, arrowlength-arrowheadlength]] )
+pts = np.array( [[0, 0, 0], [0, 0, arrowlength]] )
 arrowcolor = (255, 0, 0, 255)
 linewidth = 7.0
 arrow = Arrow3D(pos=pts, color=arrowcolor, mode='line_strip', width=linewidth, antialias=True)
-print arrow
 plot.addItem(arrow)
 
 md = gl.MeshData.cylinder(rows=10, cols=20, radius=[0.1, 0.0], length=arrowheadlength)
