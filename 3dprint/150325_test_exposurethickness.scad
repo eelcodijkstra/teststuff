@@ -1,12 +1,12 @@
 postxy = 0.5;
-postheight = 1.001;
+postheight = 1.501;
 postseparation = 1.5;
 membranethickness = 0.05;
 membrane_xseparation = 1;
 membrane_yseparation = 1;
 xslab = 9.5;
 yslab = 6;
-zslab = 1;
+zslab = 2;
 
 module post(size,height) {
   color("Red") cube(size=[size,size,height],center=false);
