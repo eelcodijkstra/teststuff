@@ -57,10 +57,19 @@ yy = np.linspace(-1,1,numpnts)
 zz = np.linspace(-1,1,numpnts)
 data_inorout = np.zeros(shape=(numpnts,numpnts,numpnts))
 
+limit = 0.5
+for i in range(numpnts):
+    for j in range(numpnts):
+        for k in range(numpnts):
+            r_squared = xx[i]**2 + yy[j]**2 + zz[k]**2
+            if r_squared < limit**2:
+                data_inorout[i,j,k] = 1.0
 
-print xx.shape, data_inorout.shape
 
-md = gl.MeshData.sphere(rows=10, cols=20)
+
+#md = gl.MeshData.sphere(rows=10, cols=20)
+vertexes, faces = pg.isosurface(data=data_inorout, level=1)
+md = gl.MeshData(vertexes=vertexes, faces=faces)
 m3 = gl.GLMeshItem(meshdata=md, smooth=False, shader='balloon')
 m3.setGLOptions('additive')
 
