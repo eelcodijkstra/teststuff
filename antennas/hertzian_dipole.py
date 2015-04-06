@@ -15,7 +15,7 @@ app = QtGui.QApplication([])
 w = gl.GLViewWidget()
 w.show()
 w.setWindowTitle('pyqtgraph example: GLMeshItem')
-w.setCameraPosition(distance=40)
+#w.setCameraPosition(distance=40)
   
 g = gl.GLGridItem()
 g.scale(2,2,1)
@@ -47,47 +47,36 @@ colors = np.array([
     [1, 1, 0, 0.3]
 ])
   
-## Mesh item will automatically compute face normals.
-m1 = gl.GLMeshItem(vertexes=verts, faces=faces, faceColors=colors, smooth=False)
-m1.translate(5, 5, 0)
-m1.setGLOptions('additive')
-w.addItem(m1)
-  
-  
-## Example 2:
-## Array of vertex positions, three per face
-verts = np.empty((36, 3, 3), dtype=np.float32)
-theta = np.linspace(0, 2*np.pi, 37)[:-1]
-verts[:,0] = np.vstack([2*np.cos(theta), 2*np.sin(theta), [0]*36]).T
-verts[:,1] = np.vstack([4*np.cos(theta+0.2), 4*np.sin(theta+0.2), [-1]*36]).T
-verts[:,2] = np.vstack([4*np.cos(theta-0.2), 4*np.sin(theta-0.2), [1]*36]).T
-  
-## Colors are specified per-vertex
-colors = np.random.random(size=(verts.shape[0], 3, 4))
-m2 = gl.GLMeshItem(vertexes=verts, vertexColors=colors, smooth=False, shader='balloon',
-                   drawEdges=True, edgeColor=(1, 1, 0, 1))
-m2.translate(-5, 5, 0)
-w.addItem(m2)
-  
-  
-  
 ## Example 3:
 ## sphere
-  
+
+
+numpnts = 101
+xx = np.linspace(-1,1,numpnts)
+yy = np.linspace(-1,1,numpnts)
+zz = np.linspace(-1,1,numpnts)
+data_inorout = np.zeros(shape=(numpnts,numpnts,numpnts))
+
+
+print xx.shape, data_inorout.shape
+
 md = gl.MeshData.sphere(rows=10, cols=20)
+m3 = gl.GLMeshItem(meshdata=md, smooth=False, shader='balloon')
+m3.setGLOptions('additive')
+
 #colors = np.random.random(size=(md.faceCount(), 4))
 #colors[:,3] = 0.3
 #colors[100:] = 0.0
 colors = np.ones((md.faceCount(), 4), dtype=float)
-colors[::2,0] = 0
-colors[:,1] = np.linspace(0, 1, colors.shape[0])
+colors[:,3] = 0.2
+#colors[100:] = 0.0
 md.setFaceColors(colors)
-m3 = gl.GLMeshItem(meshdata=md, smooth=False)#, shader='balloon')
-  
-m3.translate(5, -5, 0)
+
+
+#m3.translate(5, -5, 0)
 w.addItem(m3)
   
-  
+'''  
 # Example 4:
 # wireframe
   
@@ -116,7 +105,7 @@ m6.rotate(0., 0, 1, 1)
 #m5.translate(-3,3,0)
 w.addItem(m5)
 w.addItem(m6)
-  
+'''  
   
   
   
