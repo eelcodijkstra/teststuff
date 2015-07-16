@@ -75,6 +75,13 @@ w.addItem(m2)
   
 ## Example 3:
 ## sphere
+
+xx = np.linspace(-1,1,101)
+yy = np.linspace(-1,1,101)
+zz = np.array(101,101)
+zz = 1.0
+
+md = gl.GLSurfacePlotItem(x=None, y=None, z=None, colors=None, **kwds)
   
 md = gl.MeshData.sphere(rows=10, cols=20)
 #colors = np.random.random(size=(md.faceCount(), 4))
